@@ -1,0 +1,6 @@
+<ng-container>
+  <app-search-container></app-search-container>
+  <div *ngFor="let restaurant of restaurants | async">
+    <div>{{ restaurant.name }}</div>
+  </div>
+</ng-container>
