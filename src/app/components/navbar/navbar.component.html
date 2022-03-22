@@ -1,6 +1,8 @@
 <nav>
   <div class="nav__container">
-    <button class="nav__toggle-btn">SIDEBAR</button>
+    <button class="nav__toggle-btn" (click)="sidebarService.toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
     <div>
       <h3 class="logo">logo</h3>

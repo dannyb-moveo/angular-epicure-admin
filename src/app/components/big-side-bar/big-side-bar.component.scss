@@ -1,6 +1,8 @@
 aside {
+  display: none;
   @media screen and (min-width: 992px) {
     display: block;
+    height: 100%;
     box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.1);
 
     .sidebar__container {
@@ -10,6 +12,11 @@ aside {
       width: 250px;
       margin-left: -250px;
       transition: 0.3s ease-in-out all;
+
+      .sidebar__content {
+        position: sticky;
+        top: 0;
+      }
     }
 
     .show-sidebar {

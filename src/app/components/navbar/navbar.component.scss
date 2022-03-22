@@ -13,6 +13,10 @@ nav {
     font-size: 1.75rem;
     color: $--color-primary-500;
     cursor: pointer;
+
+    mat-icon {
+      vertical-align: middle;
+    }
   }
 
   .nav__container {

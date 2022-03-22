@@ -32,4 +32,17 @@ export class RestaurantService {
       console.log(error);
     }
   }
+
+  async updateRestaurant(id: string, restaurant: {}) {
+    try {
+      const res = await firstValueFrom(
+        this.http.patch(
+          `http://localhost:5000/api/v1/restaurants/${id}`,
+          restaurant
+        )
+      );
+      console.log(res);
+      this.fetchRestaurants();
+    } catch (error) {}
+  }
 }
