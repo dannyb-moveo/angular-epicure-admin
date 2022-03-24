@@ -16,7 +16,7 @@ export class ChefService {
   }
 
   getChefs() {
-    return this._chefs;
+    return this._chefs.asObservable();
   }
 
   public async fetchChefs() {
@@ -33,13 +33,45 @@ export class ChefService {
     }
   }
 
-  async updateChefs(id: string, restaurant: {}) {
+  async createChef(chef: ChefInterface) {
     try {
-      const res = await firstValueFrom(
-        this.http.patch(`http://localhost:5000/api/v1/chefs/${id}`, restaurant)
+      const newChef = await firstValueFrom(
+        this.http.post(`http://localhost:5000/api/v1/chefs`, chef)
       );
-      console.log(res);
+      if (newChef) {
+        alert('Chef has been successfully added');
+        this.fetchChefs();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateChef(chef: ChefInterface) {
+    const { _id: id } = chef;
+    try {
+      const updatedChef = await firstValueFrom(
+        this.http.patch(`http://localhost:5000/api/v1/chefs/${id}`, chef)
+      );
+
+      if (updatedChef) {
+        alert('Chef has been successfully updated');
+        this.fetchChefs();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteChef(id: string) {
+    try {
+      await firstValueFrom(
+        this.http.delete(`http://localhost:5000/api/v1/chefs/${id}`)
+      );
+      alert('Chef has been successfully deleted');
       this.fetchChefs();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { DialogComponent } from 'src/app/components/UI/dialog/dialog.component';
 import ChefInterface from 'src/app/interfaces/chef.interface';
 import { ChefService } from 'src/app/services/chef.service';
 
@@ -15,15 +14,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-
-interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  description: string;
-}
-
+import { ChefsDialogComponent } from 'src/app/components/chefs-dialog/chefs-dialog.component';
 @Component({
   selector: 'app-chefs',
   templateUrl: './chefs.component.html',
@@ -41,7 +32,7 @@ interface PeriodicElement {
 })
 export class ChefsComponent implements OnInit {
   chefs$: Observable<ChefInterface[]>;
-  displayedColumns: string[] = ['id', 'name', 'cotw'];
+  displayedColumns: string[] = ['name', 'cotw', 'action'];
   expandedElement: ChefInterface | null;
 
   dataSource: MatTableDataSource<ChefInterface>;
@@ -53,7 +44,7 @@ export class ChefsComponent implements OnInit {
 
   ngOnInit(): void {
     this.chefService.fetchChefs();
-    this.chefs$ = this.chefService.getChefs().asObservable();
+    this.chefs$ = this.chefService.getChefs();
     this.chefService.getChefs().subscribe((chefs) => {
       this.dataSource = new MatTableDataSource(chefs);
       this.dataSource.paginator = this.paginator;
@@ -62,7 +53,7 @@ export class ChefsComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(ChefsDialogComponent, {
       width: '50%',
     });
   }
@@ -76,10 +67,15 @@ export class ChefsComponent implements OnInit {
     }
   }
 
-  editProduct(row: ChefInterface) {
-    this.dialog.open(DialogComponent, {
+  editChef(row: ChefInterface) {
+    this.dialog.open(ChefsDialogComponent, {
       width: '50%',
       data: row,
     });
+  }
+
+  deleteChef(chef: ChefInterface) {
+    const { _id: id } = chef;
+    this.chefService.deleteChef(id!);
   }
 }

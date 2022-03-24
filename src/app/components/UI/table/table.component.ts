@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.restaurantService.fetchRestaurants();
-    this.restaurants = this.restaurantService.getRestaurants().asObservable();
+    this.restaurants = this.restaurantService.getRestaurants();
     this.restaurantService.getRestaurants().subscribe((restaurants) => {
       this.dataSource = new MatTableDataSource(restaurants);
       this.dataSource.paginator = this.paginator;

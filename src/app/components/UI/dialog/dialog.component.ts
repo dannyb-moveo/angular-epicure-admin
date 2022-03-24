@@ -65,11 +65,6 @@ export class DialogComponent implements OnInit {
 
     // console.log(this.editData.signatureDish, 'dish');
 
-    await this.restaurantService.updateRestaurant(
-      this.editData._id,
-      restaurant
-    );
-
     // console.log(restaurant);
     // edit logic
 

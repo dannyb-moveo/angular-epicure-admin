@@ -32,7 +32,7 @@ section {
   }
 
   tr.example-element-row:not(.example-expanded-row):hover {
-    background: whitesmoke;
+    background: $--color-grey-50;
   }
 
   tr.example-element-row:not(.example-expanded-row):active {
@@ -45,16 +45,27 @@ section {
 
   .example-element-detail {
     overflow: hidden;
-    display: flex;
+    display: grid;
+    grid-template-columns: max(25%) auto;
+    align-items: center;
   }
 
   .example-element-diagram {
-    min-width: 80px;
-    border: 2px solid black;
-    padding: 8px;
-    font-weight: lighter;
-    margin: 8px 0;
-    height: 104px;
+    padding-top: clamp(0rem, 2.5vw, 1rem);
+    padding-bottom: clamp(0rem, 2.5vw, 1rem);
+
+    .img {
+      height: clamp(100px, 15vw, 130px);
+      width: clamp(100px, 15vw, 130px);
+    }
+  }
+
+  mat-column-expandedDetail {
+    padding: 1.5rem 0;
+  }
+
+  .column__action {
+    text-align: end;
   }
 
   .example-element-symbol {

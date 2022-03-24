@@ -1,11 +1,11 @@
+import RestaurantInterface from './restaurant.interface';
+
 export default interface DishInterface {
-  _id: string;
+  _id?: string;
   name: string;
   price: number;
   image: string;
-  restaurant: {
-    name: string;
-  };
-  tags: string[];
   ingredients: string[];
+  tags: string[];
+  restaurant: RestaurantInterface;
 }

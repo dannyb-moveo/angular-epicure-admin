@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{ formTitle }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="chefsForm">
+    <!-- Name field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Chef Name</mat-label>
+      <input formControlName="name" matInput placeholder="Chef name" />
+    </mat-form-field>
+    <!-- Description field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Chef Description</mat-label>
+      <textarea
+        formControlName="description"
+        matInput
+        placeholder="Chef description"
+      ></textarea>
+    </mat-form-field>
+
+    <!-- COTW field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Chef of the week</mat-label>
+      <mat-select
+        placeholder="Chef of the week?"
+        formControlName="isChefOfTheWeek"
+      >
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+  <button class="btn btn-danger" mat-dialog-close="">Close</button>
+  <button class="btn btn-prime" (click)="addChef()">{{ actionBtn }}</button>
+</div>

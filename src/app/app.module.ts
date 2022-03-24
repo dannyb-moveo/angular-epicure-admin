@@ -29,6 +29,11 @@ import { LogoComponent } from './components/UI/logo/logo.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ChefsComponent } from './pages/chefs/chefs.component';
 import { DishesComponent } from './pages/dishes/dishes.component';
+import { ChefsDialogComponent } from './components/chefs-dialog/chefs-dialog.component';
+import { DishesDialogComponent } from './components/dishes-dialog/dishes-dialog.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { RestaurantsDialogComponent } from './components/restaurants-dialog/restaurants-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,9 @@ import { DishesComponent } from './pages/dishes/dishes.component';
     LogoComponent,
     ChefsComponent,
     DishesComponent,
+    ChefsDialogComponent,
+    DishesDialogComponent,
+    RestaurantsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +71,8 @@ import { DishesComponent } from './pages/dishes/dishes.component';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
+    MatChipsModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

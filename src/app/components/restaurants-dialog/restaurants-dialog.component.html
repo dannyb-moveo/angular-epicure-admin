@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>{{ formTitle }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="restaurantsForm">
+    <!-- Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Restaurant Name</mat-label>
+      <input formControlName="name" matInput placeholder=" Restaurant name" />
+    </mat-form-field>
+    <!-- Chef-->
+    <mat-form-field appearance="outline">
+      <mat-label>Chef</mat-label>
+      <mat-select formControlName="chef">
+        <mat-option *ngFor="let chef of chefs$ | async" [value]="chef._id">
+          {{ chef.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- signature dish  -->
+    <mat-form-field appearance="outline">
+      <mat-label> Signature Dish</mat-label>
+      <mat-select formControlName="signatureDish">
+        <mat-option *ngFor="let dish of restaurantDishes" [value]="dish._id">
+          {{ dish.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- isPopular -->
+    <mat-form-field appearance="outline">
+      <mat-label>Popular</mat-label>
+      <mat-select placeholder="Popular restaurant?" formControlName="isPopular">
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="uploadInput.click()">Upload</button>
+    <input type="file" #uploadInput (change)="uploadFile($event)" />
+  </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+  <button class="btn btn-danger" mat-dialog-close="">Close</button>
+  <button class="btn btn-prime" (click)="addRestaurant()">
+    {{ actionBtn }}
+  </button>
+</div>
