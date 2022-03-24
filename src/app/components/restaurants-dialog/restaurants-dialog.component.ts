@@ -20,6 +20,9 @@ export class RestaurantsDialogComponent implements OnInit {
   restaurantsForm: FormGroup;
   actionBtn = 'Save';
   formTitle = 'Add restaurant form';
+  file: File;
+  fileName = '';
+  imageUrl = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,8 +45,10 @@ export class RestaurantsDialogComponent implements OnInit {
 
     // user is editing
     if (this.editData) {
-      const { _id, name, chef, signatureDish, isPopular } = this.editData;
+      const { _id, name, chef, signatureDish, isPopular, image } =
+        this.editData;
       this.getRestaurantDishes(_id);
+      this.imageUrl = image;
       this.actionBtn = 'Update';
       this.formTitle = 'Update restaurant form';
       this.restaurantsForm.controls['name'].setValue(name);
@@ -62,9 +67,7 @@ export class RestaurantsDialogComponent implements OnInit {
         this.restaurantsForm.value;
       const restaurant = {
         name,
-        image:
-          'https://media.istockphoto.com/photos/portrait-of-handsome-man-in-kitchen-picture-id1299738603?k=20&m=1299738603&s=612x612&w=0&h=4G0_pkU8y-MDNUEtvfpYFQCJkn6CVAfcStrC0ymxfT8=',
-
+        image: this.imageUrl,
         chef,
         signatureDish,
         isPopular,
@@ -82,8 +85,7 @@ export class RestaurantsDialogComponent implements OnInit {
     const restaurant = {
       _id,
       name,
-      image:
-        'https://media.istockphoto.com/photos/portrait-of-handsome-man-in-kitchen-picture-id1299738603?k=20&m=1299738603&s=612x612&w=0&h=4G0_pkU8y-MDNUEtvfpYFQCJkn6CVAfcStrC0ymxfT8=',
+      image: this.imageUrl,
       chef,
       signatureDish,
       isPopular,
@@ -94,11 +96,12 @@ export class RestaurantsDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  async uploadFile($event: any) {
-    console.log('event', $event);
-    console.log('files', $event.target.files[0]);
-    const file = $event.target.files[0];
-    this.uploadService.fetchSecureURL(file);
+  async selectFile($event: any) {
+    this.file = $event.target.files[0];
+    if (this.file) {
+      this.fileName = this.file.name;
+      this.imageUrl = await this.uploadService.fetchSecureURL(this.file);
+    }
   }
 
   async getRestaurantDishes(id: string) {

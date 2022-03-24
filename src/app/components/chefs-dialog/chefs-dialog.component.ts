@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import ChefInterface from 'src/app/interfaces/chef.interface';
 import { ChefService } from 'src/app/services/chef.service';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'app-chefs-dialog',
@@ -13,12 +14,16 @@ export class ChefsDialogComponent implements OnInit {
   chefsForm: FormGroup;
   actionBtn = 'Save';
   formTitle = 'Add chef form';
+  file: File;
+  fileName = '';
+  imageUrl = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ChefsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private editData: ChefInterface,
-    private chefService: ChefService
+    private chefService: ChefService,
+    private uploadService: UploadService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,7 @@ export class ChefsDialogComponent implements OnInit {
 
     // user is editing
     if (this.editData) {
+      this.imageUrl = this.editData.image;
       this.actionBtn = 'Update';
       this.formTitle = 'Update chef form';
       this.chefsForm.controls['name'].setValue(this.editData.name);
@@ -48,8 +54,7 @@ export class ChefsDialogComponent implements OnInit {
       const chef: ChefInterface = {
         name: this.chefsForm.value.name,
         description: this.chefsForm.value.description,
-        image:
-          'https://media.istockphoto.com/photos/portrait-of-handsome-man-in-kitchen-picture-id1299738603?k=20&m=1299738603&s=612x612&w=0&h=4G0_pkU8y-MDNUEtvfpYFQCJkn6CVAfcStrC0ymxfT8=',
+        image: this.imageUrl,
         isChefOfTheWeek: this.chefsForm.value.isChefOfTheWeek,
       };
       await this.chefService.createChef(chef);
@@ -65,12 +70,20 @@ export class ChefsDialogComponent implements OnInit {
       _id: this.editData._id,
       name,
       description,
-      image: this.editData.image,
+      image: this.imageUrl,
       isChefOfTheWeek,
     };
     await this.chefService.updateChef(chef);
 
     this.chefsForm.reset();
     this.dialogRef.close();
+  }
+
+  async selectFile($event: any) {
+    this.file = $event.target.files[0];
+    if (this.file) {
+      this.fileName = this.file.name;
+      this.imageUrl = await this.uploadService.fetchSecureURL(this.file);
+    }
   }
 }

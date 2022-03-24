@@ -9,6 +9,7 @@ export class UploadService {
   constructor(private http: HttpClient) {}
 
   async fetchSecureURL(file: any) {
+    let imageUrl = '';
     try {
       const { url } = await firstValueFrom(
         this.http.get<{ url: string }>(`http://localhost:5000/s3Url`)
@@ -20,8 +21,10 @@ export class UploadService {
           },
         })
       );
-      const imageUrl = url.split('?')[0];
-      console.log(imageUrl);
-    } catch (error) {}
+      imageUrl = url.split('?')[0];
+    } catch (error) {
+      console.log(error);
+    }
+    return imageUrl;
   }
 }

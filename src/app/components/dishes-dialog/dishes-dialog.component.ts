@@ -8,6 +8,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import RestaurantInterface from 'src/app/interfaces/restaurant.interface';
 import { Observable } from 'rxjs';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'app-dishes-dialog',
@@ -21,6 +22,9 @@ export class DishesDialogComponent implements OnInit {
   formTitle = 'Add dish form';
   ingredients: string[] = [];
   tags: string[] = ['spicy', 'vegan', 'vegetarian'];
+  file: File;
+  fileName = '';
+  imageUrl = '';
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
@@ -29,7 +33,8 @@ export class DishesDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<DishesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private editData: DishInterface,
     private dishService: DishService,
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private uploadService: UploadService
   ) {}
 
   ngOnInit(): void {
@@ -52,8 +57,10 @@ export class DishesDialogComponent implements OnInit {
         ingredients,
         tags,
         restaurant: { _id },
+        image,
       } = this.editData;
 
+      this.imageUrl = image;
       this.dishesForm.controls['name'].setValue(name);
       this.dishesForm.controls['price'].setValue(price);
       this.dishesForm.controls['tags'].setValue(tags);
@@ -69,8 +76,7 @@ export class DishesDialogComponent implements OnInit {
       const dish = {
         name,
         price,
-        image:
-          'https://media.istockphoto.com/photos/portrait-of-handsome-man-in-kitchen-picture-id1299738603?k=20&m=1299738603&s=612x612&w=0&h=4G0_pkU8y-MDNUEtvfpYFQCJkn6CVAfcStrC0ymxfT8=',
+        image: this.imageUrl,
         ingredients: this.ingredients,
         tags,
         restaurant,
@@ -84,12 +90,12 @@ export class DishesDialogComponent implements OnInit {
 
   async updateDish() {
     const { name, price, tags } = this.dishesForm.value;
-    const { image, _id } = this.editData;
+    const { _id } = this.editData;
     const dish = {
       _id,
       name,
       price,
-      image,
+      image: this.imageUrl,
       ingredients: this.ingredients,
       tags,
       restaurant: this.editData.restaurant._id,
@@ -117,6 +123,14 @@ export class DishesDialogComponent implements OnInit {
 
     if (index >= 0) {
       this.ingredients.splice(index, 1);
+    }
+  }
+
+  async selectFile($event: any) {
+    this.file = $event.target.files[0];
+    if (this.file) {
+      this.fileName = this.file.name;
+      this.imageUrl = await this.uploadService.fetchSecureURL(this.file);
     }
   }
 }
