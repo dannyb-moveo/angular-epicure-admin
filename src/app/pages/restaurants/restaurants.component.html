@@ -1,15 +1,5 @@
 <section>
-  <div
-    *ngIf="isLoading"
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: black;
-    "
-  >
-    <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
-  </div>
+  <app-loader *ngIf="isLoading$ | async"></app-loader>
 
   <div class="table__content">
     <div class="table__content-header">

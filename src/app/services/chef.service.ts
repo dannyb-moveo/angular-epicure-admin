@@ -8,6 +8,7 @@ import ChefInterface from '../interfaces/chef.interface';
 })
 export class ChefService {
   private _chefs = new BehaviorSubject<ChefInterface[]>([]);
+  private _isloading = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +20,12 @@ export class ChefService {
     return this._chefs.asObservable();
   }
 
+  getIsLoading() {
+    return this._isloading.asObservable();
+  }
+
   public async fetchChefs() {
+    this._isloading.next(true);
     try {
       const chefs = await firstValueFrom(
         this.http.get<{ chefs: ChefInterface[] }>(
@@ -27,8 +33,10 @@ export class ChefService {
         )
       );
 
+      this._isloading.next(false);
       this.setChefs(chefs.chefs);
     } catch (error) {
+      this._isloading.next(false);
       console.log(error);
     }
   }

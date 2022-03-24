@@ -12,14 +12,12 @@ import { RestaurantsComponent } from './pages/restaurants/restaurants.component'
 import { FormRowComponent } from './components/UI/form-row/form-row.component';
 import { FormRowSelectComponent } from './components/UI/form-row-select/form-row-select.component';
 import { SearchContainerComponent } from './components/UI/search-container/search-container.component';
-import { TableComponent } from './components/UI/table/table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './components/UI/dialog/dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,6 +32,8 @@ import { DishesDialogComponent } from './components/dishes-dialog/dishes-dialog.
 import { MatChipsModule } from '@angular/material/chips';
 import { RestaurantsDialogComponent } from './components/restaurants-dialog/restaurants-dialog.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoaderComponent } from './components/UI/loader/loader.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -46,14 +46,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormRowComponent,
     FormRowSelectComponent,
     SearchContainerComponent,
-    TableComponent,
-    DialogComponent,
     LogoComponent,
     ChefsComponent,
     DishesComponent,
     ChefsDialogComponent,
     DishesDialogComponent,
     RestaurantsDialogComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +72,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSelectModule,
     MatChipsModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

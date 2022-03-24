@@ -6,9 +6,16 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class UploadService {
+  private _isLoading = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {}
 
+  getIsLoading() {
+    return this._isLoading.asObservable();
+  }
+
   async fetchSecureURL(file: any) {
+    this._isLoading.next(true);
     let imageUrl = '';
     try {
       const { url } = await firstValueFrom(
@@ -21,10 +28,15 @@ export class UploadService {
           },
         })
       );
+      this._isLoading.next(false);
       imageUrl = url.split('?')[0];
     } catch (error) {
+      this._isLoading.next(false);
+
       console.log(error);
     }
+    this._isLoading.next(false);
+
     return imageUrl;
   }
 }

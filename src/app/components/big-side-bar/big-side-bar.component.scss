@@ -28,6 +28,10 @@ aside {
       display: flex;
       align-items: center;
       padding-left: 2.5rem;
+
+      app-logo {
+        max-width: 60px;
+      }
     }
   }
 }

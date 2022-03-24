@@ -17,6 +17,7 @@ import { UploadService } from 'src/app/services/upload.service';
 export class RestaurantsDialogComponent implements OnInit {
   chefs$: Observable<ChefInterface[]>;
   restaurantDishes: DishInterface[] = [];
+  isUploadloading$: Observable<boolean>;
   restaurantsForm: FormGroup;
   actionBtn = 'Save';
   formTitle = 'Add restaurant form';
@@ -34,6 +35,7 @@ export class RestaurantsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isUploadloading$ = this.uploadService.getIsLoading();
     this.chefService.fetchChefs();
     this.chefs$ = this.chefService.getChefs();
     this.restaurantsForm = this.formBuilder.group({

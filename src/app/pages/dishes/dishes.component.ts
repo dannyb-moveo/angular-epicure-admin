@@ -33,6 +33,7 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 })
 export class DishesComponent implements OnInit {
   dishes$: Observable<DishInterface[]>;
+  isLoading$: Observable<boolean>;
   displayedColumns: string[] = [
     'name',
     'price',
@@ -55,6 +56,7 @@ export class DishesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.dishService.getIsLoading();
     this.dishService.fetchDishes();
     this.dishes$ = this.dishService.getDishes();
     this.dishService.getDishes().subscribe((dishes) => {

@@ -44,7 +44,6 @@
       class="file-input"
       (change)="selectFile($event)"
       #fileUpload
-      formControlName="image"
     />
 
     <div class="file-upload">
@@ -58,7 +57,19 @@
       >
         <mat-icon>attach_file</mat-icon>
       </button>
-      <img *ngIf="imageUrl" src="{{ imageUrl }}" alt="name" class="img" />
+      <img
+        *ngIf="imageUrl && !(isUploadloading$ | async); else loader"
+        src="{{ imageUrl }}"
+        alt="name"
+        class="img"
+      />
+      <ng-template #loader>
+        <app-loader
+          [isSpinner]="true"
+          *ngIf="isUploadloading$ | async"
+          style="margin: 0 0 0 auto"
+        ></app-loader>
+      </ng-template>
     </div>
   </form>
 </div>

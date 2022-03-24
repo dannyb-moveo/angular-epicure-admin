@@ -1,4 +1,6 @@
 <section>
+  <app-loader *ngIf="isLoading$ | async"></app-loader>
+
   <div class="table__content">
     <div class="table__content-header">
       <h3>Chefs</h3>

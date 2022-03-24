@@ -31,6 +31,7 @@ import { RestaurantsDialogComponent } from 'src/app/components/restaurants-dialo
 })
 export class RestaurantsComponent implements OnInit {
   restaurants$: Observable<RestaurantInterface[]>;
+  isLoading$: Observable<boolean>;
   displayedColumns: string[] = [
     'name',
     'popular',
@@ -39,7 +40,6 @@ export class RestaurantsComponent implements OnInit {
     'action',
   ];
   expandedElement: RestaurantInterface | null;
-  isLoading = true;
 
   dataSource: MatTableDataSource<RestaurantInterface>;
 
@@ -52,13 +52,13 @@ export class RestaurantsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.restaurantService.getIsLoading();
     this.restaurantService.fetchRestaurants();
     this.restaurants$ = this.restaurantService.getRestaurants();
     this.restaurantService.getRestaurants().subscribe((restaurants) => {
       this.dataSource = new MatTableDataSource(restaurants);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.isLoading = false;
     });
   }
 

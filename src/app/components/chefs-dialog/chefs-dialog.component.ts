@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import ChefInterface from 'src/app/interfaces/chef.interface';
 import { ChefService } from 'src/app/services/chef.service';
 import { UploadService } from 'src/app/services/upload.service';
@@ -11,6 +12,7 @@ import { UploadService } from 'src/app/services/upload.service';
   styleUrls: ['./chefs-dialog.component.scss'],
 })
 export class ChefsDialogComponent implements OnInit {
+  isUploadloading$: Observable<boolean>;
   chefsForm: FormGroup;
   actionBtn = 'Save';
   formTitle = 'Add chef form';
@@ -27,6 +29,7 @@ export class ChefsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isUploadloading$ = this.uploadService.getIsLoading();
     this.chefsForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],

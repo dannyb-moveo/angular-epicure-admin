@@ -32,6 +32,7 @@ import { ChefsDialogComponent } from 'src/app/components/chefs-dialog/chefs-dial
 })
 export class ChefsComponent implements OnInit {
   chefs$: Observable<ChefInterface[]>;
+  isLoading$: Observable<boolean>;
   displayedColumns: string[] = ['name', 'cotw', 'action'];
   expandedElement: ChefInterface | null;
 
@@ -43,6 +44,7 @@ export class ChefsComponent implements OnInit {
   constructor(private chefService: ChefService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.chefService.getIsLoading();
     this.chefService.fetchChefs();
     this.chefs$ = this.chefService.getChefs();
     this.chefService.getChefs().subscribe((chefs) => {

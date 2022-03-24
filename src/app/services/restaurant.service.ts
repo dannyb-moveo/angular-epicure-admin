@@ -9,6 +9,7 @@ import DishInterface from '../interfaces/dish.interface';
 })
 export class RestaurantService {
   private restaurants = new BehaviorSubject<RestaurantInterface[]>([]);
+  private _isloading = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
@@ -20,16 +21,22 @@ export class RestaurantService {
     return this.restaurants.asObservable();
   }
 
+  getIsLoading() {
+    return this._isloading.asObservable();
+  }
+
   public async fetchRestaurants() {
+    this._isloading.next(true);
     try {
       const restaurants = await firstValueFrom(
         this.http.get<{ restaurants: RestaurantInterface[] }>(
           `http://localhost:5000/api/v1/restaurants`
         )
       );
-
+      this._isloading.next(false);
       this.setRestaurants(restaurants.restaurants);
     } catch (error) {
+      this._isloading.next(false);
       console.log(error);
     }
   }
