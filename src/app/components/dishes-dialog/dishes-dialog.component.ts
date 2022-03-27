@@ -75,7 +75,7 @@ export class DishesDialogComponent implements OnInit {
       this.updateDish();
     } else {
       const { name, price, tags, restaurant } = this.dishesForm.value;
-      const dish = {
+      const dish: DishInterface = {
         name,
         price,
         image: this.imageUrl,
@@ -91,16 +91,16 @@ export class DishesDialogComponent implements OnInit {
   }
 
   async updateDish() {
-    const { name, price, tags } = this.dishesForm.value;
+    const { name, price, tags, restaurant } = this.dishesForm.value;
     const { _id } = this.editData;
-    const dish = {
+    const dish: DishInterface = {
       _id,
       name,
       price,
       image: this.imageUrl,
       ingredients: this.ingredients,
       tags,
-      restaurant: this.editData.restaurant._id,
+      restaurant,
     };
     await this.dishService.updateDish(dish);
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import DishInterface from '../interfaces/dish.interface';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class DishService {
     try {
       const dishes = await firstValueFrom(
         this.http.get<{ dishes: DishInterface[] }>(
-          `http://localhost:5000/api/v1/dishes`
+          `${environment.baseURL}/dishes`
         )
       );
       this._isloading.next(false);
@@ -40,10 +41,10 @@ export class DishService {
     }
   }
 
-  async createDish(dish: {}) {
+  async createDish(dish: DishInterface) {
     try {
       const newDish = await firstValueFrom(
-        this.http.post(`http://localhost:5000/api/v1/dishes`, dish)
+        this.http.post(`${environment.baseURL}/dishes`, dish)
       );
       if (newDish) {
         alert('Dish has been successfully added');
@@ -54,19 +55,11 @@ export class DishService {
     }
   }
 
-  async updateDish(dish: {
-    _id: any;
-    name: any;
-    price: any;
-    image: any;
-    ingredients: any;
-    tags: any;
-    restaurant: any;
-  }) {
+  async updateDish(dish: DishInterface) {
     const { _id: id } = dish;
     try {
       const updateDish = await firstValueFrom(
-        this.http.patch(`http://localhost:5000/api/v1/dishes/${id}`, dish)
+        this.http.patch(`${environment.baseURL}/dishes/${id}`, dish)
       );
 
       if (updateDish) {
@@ -81,7 +74,7 @@ export class DishService {
   async deleteDish(id: string) {
     try {
       await firstValueFrom(
-        this.http.delete(`http://localhost:5000/api/v1/dishes/${id}`)
+        this.http.delete(`${environment.baseURL}/dishes/${id}`)
       );
       alert('Dish has been successfully deleted');
       this.fetchDishes();

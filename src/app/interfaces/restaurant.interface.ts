@@ -2,7 +2,7 @@ import ChefInterface from './chef.interface';
 import DishInterface from './dish.interface';
 
 export default interface RestaurantInterface {
-  _id: string;
+  _id?: string;
   name: string;
   image: string;
   chef: ChefInterface;

@@ -49,7 +49,7 @@ export class RestaurantsDialogComponent implements OnInit {
     if (this.editData) {
       const { _id, name, chef, signatureDish, isPopular, image } =
         this.editData;
-      this.getRestaurantDishes(_id);
+      this.getRestaurantDishes(_id!);
       this.imageUrl = image;
       this.actionBtn = 'Update';
       this.formTitle = 'Update restaurant form';
@@ -67,7 +67,7 @@ export class RestaurantsDialogComponent implements OnInit {
     } else {
       const { name, chef, signatureDish, isPopular } =
         this.restaurantsForm.value;
-      const restaurant = {
+      const restaurant: RestaurantInterface = {
         name,
         image: this.imageUrl,
         chef,
@@ -84,7 +84,7 @@ export class RestaurantsDialogComponent implements OnInit {
   async updateRestaurant() {
     const { name, chef, signatureDish, isPopular } = this.restaurantsForm.value;
     const { _id } = this.editData;
-    const restaurant = {
+    const restaurant: RestaurantInterface = {
       _id,
       name,
       image: this.imageUrl,

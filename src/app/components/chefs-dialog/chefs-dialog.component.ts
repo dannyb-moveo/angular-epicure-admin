@@ -54,11 +54,12 @@ export class ChefsDialogComponent implements OnInit {
     if (this.editData) {
       this.updateChef();
     } else {
+      const { name, description, isChefOfTheWeek } = this.chefsForm.value;
       const chef: ChefInterface = {
-        name: this.chefsForm.value.name,
-        description: this.chefsForm.value.description,
+        name,
+        description,
         image: this.imageUrl,
-        isChefOfTheWeek: this.chefsForm.value.isChefOfTheWeek,
+        isChefOfTheWeek,
       };
       await this.chefService.createChef(chef);
 

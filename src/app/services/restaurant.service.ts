@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import RestaurantInterface from '../interfaces/restaurant.interface';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import DishInterface from '../interfaces/dish.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class RestaurantService {
     try {
       const restaurants = await firstValueFrom(
         this.http.get<{ restaurants: RestaurantInterface[] }>(
-          `http://localhost:5000/api/v1/restaurants`
+          `${environment.baseURL}/restaurants`
         )
       );
       this._isloading.next(false);
@@ -41,10 +42,10 @@ export class RestaurantService {
     }
   }
 
-  async createRestaurant(restaurant: {}) {
+  async createRestaurant(restaurant: RestaurantInterface) {
     try {
       const newRestaurant = await firstValueFrom(
-        this.http.post(`http://localhost:5000/api/v1/restaurants`, restaurant)
+        this.http.post(`${environment.baseURL}/restaurants`, restaurant)
       );
       if (newRestaurant) {
         alert('Restaurant has been successfully added');
@@ -59,10 +60,7 @@ export class RestaurantService {
     const { _id: id } = restaurant;
     try {
       const updatedRestaurant = await firstValueFrom(
-        this.http.patch(
-          `http://localhost:5000/api/v1/restaurants/${id}`,
-          restaurant
-        )
+        this.http.patch(`${environment.baseURL}/restaurants/${id}`, restaurant)
       );
 
       if (updatedRestaurant) {
@@ -77,7 +75,7 @@ export class RestaurantService {
   async deleteRestaurant(id: string) {
     try {
       await firstValueFrom(
-        this.http.delete(`http://localhost:5000/api/v1/restaurants/${id}`)
+        this.http.delete(`${environment.baseURL}/restaurants/${id}`)
       );
       alert('Restaurant has been successfully deleted');
       this.fetchRestaurants();
@@ -91,7 +89,7 @@ export class RestaurantService {
     try {
       const response = await firstValueFrom(
         this.http.get<{ dishes: DishInterface[] }>(
-          `http://localhost:5000/api/v1/restaurants/${id}/dishes`
+          `${environment.baseURL}/restaurants/${id}/dishes`
         )
       );
       restaurantDishes = response.dishes;

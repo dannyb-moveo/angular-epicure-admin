@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import ChefInterface from '../interfaces/chef.interface';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class ChefService {
     try {
       const chefs = await firstValueFrom(
         this.http.get<{ chefs: ChefInterface[] }>(
-          `http://localhost:5000/api/v1/chefs`
+          `${environment.baseURL}/chefs`
         )
       );
 
@@ -44,7 +45,7 @@ export class ChefService {
   async createChef(chef: ChefInterface) {
     try {
       const newChef = await firstValueFrom(
-        this.http.post(`http://localhost:5000/api/v1/chefs`, chef)
+        this.http.post(`${environment.baseURL}/chefs`, chef)
       );
       if (newChef) {
         alert('Chef has been successfully added');
@@ -59,7 +60,7 @@ export class ChefService {
     const { _id: id } = chef;
     try {
       const updatedChef = await firstValueFrom(
-        this.http.patch(`http://localhost:5000/api/v1/chefs/${id}`, chef)
+        this.http.patch(`${environment.baseURL}/chefs/${id}`, chef)
       );
 
       if (updatedChef) {
@@ -74,7 +75,7 @@ export class ChefService {
   async deleteChef(id: string) {
     try {
       await firstValueFrom(
-        this.http.delete(`http://localhost:5000/api/v1/chefs/${id}`)
+        this.http.delete(`${environment.baseURL}/chefs/${id}`)
       );
       alert('Chef has been successfully deleted');
       this.fetchChefs();
