@@ -19,87 +19,89 @@
     </div>
   </div>
 
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
-    <!-- ID Column
+  <div class="table">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+      <!-- ID Column
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let dish">{{ dish._id }}</td>
     </ng-container> -->
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>name</th>
-      <td mat-cell *matCellDef="let dish">{{ dish.name }}</td>
-    </ng-container>
-    <!-- Price Column -->
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>price</th>
-      <td mat-cell *matCellDef="let dish">{{ dish.price }}</td>
-    </ng-container>
-    <!-- Tags Column -->
-    <ng-container matColumnDef="tags">
-      <th mat-header-cell *matHeaderCellDef>tags</th>
-      <td mat-cell *matCellDef="let dish">{{ dish.tags }}</td>
-    </ng-container>
-    <!-- belongs to restaurant Column -->
-    <ng-container matColumnDef="restaurant">
-      <th mat-header-cell *matHeaderCellDef>Restaurant</th>
-      <td mat-cell *matCellDef="let dish">{{ dish.restaurant.name }}</td>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>name</th>
+        <td mat-cell *matCellDef="let dish">{{ dish.name }}</td>
+      </ng-container>
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>price</th>
+        <td mat-cell *matCellDef="let dish">{{ dish.price }}</td>
+      </ng-container>
+      <!-- Tags Column -->
+      <ng-container matColumnDef="tags">
+        <th mat-header-cell *matHeaderCellDef>tags</th>
+        <td mat-cell *matCellDef="let dish">{{ dish.tags }}</td>
+      </ng-container>
+      <!-- belongs to restaurant Column -->
+      <ng-container matColumnDef="restaurant">
+        <th mat-header-cell *matHeaderCellDef>Restaurant</th>
+        <td mat-cell *matCellDef="let dish">{{ dish.restaurant.name }}</td>
+      </ng-container>
 
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let dish" class="column__action">
-        <button mat-icon-button color="primary" (click)="editDish(dish)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteDish(dish)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let dish" class="column__action">
+          <button mat-icon-button color="primary" (click)="editDish(dish)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteDish(dish)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-    <ng-container matColumnDef="expandedDetail">
-      <td
-        mat-cell
-        *matCellDef="let element"
-        [attr.colspan]="displayedColumns.length"
-      >
-        <div
-          class="example-element-detail"
-          [@detailExpand]="
-            element == expandedElement ? 'expanded' : 'collapsed'
-          "
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="displayedColumns.length"
         >
-          <div class="example-element-diagram">
-            <img
-              src="{{ element.image }}"
-              alt="{{ element.name }}"
-              class="img"
-            />
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-diagram">
+              <img
+                src="{{ element.image }}"
+                alt="{{ element.name }}"
+                class="img"
+              />
+            </div>
+            <div class="example-element-description">
+              ingredients: {{ element.ingredients }}
+            </div>
           </div>
-          <div class="example-element-description">
-            ingredients: {{ element.ingredients }}
-          </div>
-        </div>
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="example-element-row"
-      [class.example-expanded-row]="expandedElement === row"
-      (click)="expandedElement = expandedElement === row ? null : row"
-    ></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: ['expandedDetail']"
-      class="example-detail-row"
-    ></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === row"
+        (click)="expandedElement = expandedElement === row ? null : row"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  </div>
   <mat-paginator
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page of users"

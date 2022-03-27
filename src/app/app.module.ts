@@ -11,7 +11,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantsComponent } from './pages/restaurants/restaurants.component';
 import { FormRowComponent } from './components/UI/form-row/form-row.component';
 import { FormRowSelectComponent } from './components/UI/form-row-select/form-row-select.component';
-import { SearchContainerComponent } from './components/UI/search-container/search-container.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
@@ -34,6 +33,8 @@ import { RestaurantsDialogComponent } from './components/restaurants-dialog/rest
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoaderComponent } from './components/UI/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SmallSideBarComponent } from './components/small-side-bar/small-side-bar.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RestaurantsComponent,
     FormRowComponent,
     FormRowSelectComponent,
-    SearchContainerComponent,
     LogoComponent,
     ChefsComponent,
     DishesComponent,
@@ -53,6 +53,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DishesDialogComponent,
     RestaurantsDialogComponent,
     LoaderComponent,
+    SmallSideBarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

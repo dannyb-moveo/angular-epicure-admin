@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form-row',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-row.component.scss'],
 })
 export class FormRowComponent implements OnInit {
-  name = 'Restaurant Status';
-  type = 'text';
+  @Input() name = '';
+  @Input() type = 'text';
+  // @Input() id = '';
+  @Input() formCtrlName = '';
+  @Input() form: FormGroup;
 
   constructor() {}
 

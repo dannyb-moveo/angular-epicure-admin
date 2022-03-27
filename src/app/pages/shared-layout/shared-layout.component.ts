@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-shared-layout',

@@ -1,5 +1,9 @@
-<div class="form-row">
+<div class="form-row" [formGroup]="form">
   <label class="form-label" for="{{ name }}">{{ name }}</label>
-
-  <input class="form-input" type="{{ type }}" />
+  <input
+    class="form-input"
+    type="{{ type }}"
+    id="{{ name }}"
+    [formControlName]="formCtrlName"
+  />
 </div>

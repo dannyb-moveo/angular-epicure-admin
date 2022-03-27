@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidebarService {
-  private _isSidebarOpen = new BehaviorSubject<boolean>(true);
+  private _isSidebarOpen = new BehaviorSubject<boolean>(false);
 
   constructor() {}
 
@@ -14,7 +14,6 @@ export class SidebarService {
   }
 
   toggleSidebar() {
-    console.log('first');
     this._isSidebarOpen.next(!this._isSidebarOpen.value);
   }
 }
