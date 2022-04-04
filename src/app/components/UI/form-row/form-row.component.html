@@ -1,0 +1,14 @@
+<div class="form-row" [formGroup]="form">
+  <label class="form-label" for="{{ name }}">{{ name }}</label>
+  <input
+    class="form-input"
+    type="{{ type }}"
+    id="{{ name }}"
+    [formControlName]="formCtrlName"
+  />
+  <div *ngIf="isSubmitted && form.controls[name].errors">
+    <small class="form-alert" *ngIf="form.controls[name].errors?.['required']"
+      >{{ name }} is required</small
+    >
+  </div>
+</div>

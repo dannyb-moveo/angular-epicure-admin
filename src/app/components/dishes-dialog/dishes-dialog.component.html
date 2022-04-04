@@ -1,0 +1,124 @@
+<h1 mat-dialog-title>{{ formTitle }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="dishesForm">
+    <!-- Name field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Dish Name</mat-label>
+      <input formControlName="name" matInput placeholder="Dish name" />
+    </mat-form-field>
+    <!-- Price field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Dish Price</mat-label>
+      <input
+        formControlName="price"
+        matInput
+        placeholder="Dish price"
+        type="number"
+      />
+    </mat-form-field>
+
+    <!-- Ingredients -->
+    <mat-form-field class="example-chip-list" appearance="outline">
+      <mat-label>Ingredients</mat-label>
+      <mat-chip-list #chipList aria-label="Tags selection">
+        <mat-chip
+          *ngFor="let ingredient of ingredients"
+          (removed)="removeIngredient(ingredient)"
+        >
+          {{ ingredient }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="New ingredient..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="addIngredient($event)"
+          formControlName="ingredients"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+
+    <!-- Tags -->
+    <mat-form-field appearance="outline">
+      <mat-label>Tags</mat-label>
+      <mat-select formControlName="tags" multiple>
+        <mat-select-trigger>
+          {{
+            dishesForm.controls["tags"].value
+              ? dishesForm.controls["tags"].value[0]
+              : ""
+          }}
+          <span
+            *ngIf="dishesForm.controls['tags'].value?.length > 1"
+            class="example-additional-selection"
+          >
+            (+{{ dishesForm.controls["tags"].value.length - 1 }}
+            {{
+              dishesForm.controls["tags"].value?.length === 2
+                ? "other"
+                : "others"
+            }})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let tag of tags" [value]="tag">{{
+          tag
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Restaurant-->
+    <mat-form-field appearance="outline">
+      <mat-label>Restaurant</mat-label>
+      <mat-select formControlName="restaurant">
+        <mat-option
+          *ngFor="let restaurant of restaurants$ | async"
+          [value]="restaurant._id"
+        >
+          {{ restaurant.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- upload image -->
+    <input
+      type="file"
+      class="file-input"
+      (change)="selectFile($event)"
+      #fileUpload
+    />
+
+    <div class="file-upload">
+      {{ fileName || "No image uploaded yet." }}
+
+      <button
+        mat-mini-fab
+        color="primary"
+        class="upload-btn"
+        (click)="fileUpload.click()"
+      >
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <img
+        *ngIf="imageUrl && !(isUploadloading$ | async); else loader"
+        src="{{ imageUrl }}"
+        alt="name"
+        class="img"
+      />
+      <ng-template #loader>
+        <app-loader
+          [isSpinner]="true"
+          *ngIf="isUploadloading$ | async"
+          style="margin: 0 0 0 auto"
+        ></app-loader>
+      </ng-template>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+  <button class="btn btn-danger" mat-dialog-close="">Close</button>
+  <button class="btn btn-prime" (click)="addDish()">{{ actionBtn }}</button>
+</div>

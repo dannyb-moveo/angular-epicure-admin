@@ -1,0 +1,13 @@
+<aside>
+  <div
+    class="sidebar__container"
+    [ngClass]="{ 'show-sidebar': isSidebarOpen | async }"
+  >
+    <div class="sidebar__content">
+      <header>
+        <app-logo></app-logo>
+      </header>
+      <app-nav-links></app-nav-links>
+    </div>
+  </div>
+</aside>

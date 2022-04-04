@@ -1,0 +1,41 @@
+@import "../../../variables";
+
+.nav__links {
+  .nav__link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 1rem 2.5rem;
+    color: $--color-grey-500;
+    text-transform: capitalize;
+    transition: $--transition;
+
+    &:hover {
+      background: $--color-grey-50;
+      padding-left: 3rem;
+      color: $--color-grey-900;
+    }
+
+    &:hover .icon {
+      color: $--color-primary-500;
+    }
+
+    .icon {
+      margin-right: 1rem;
+      display: grid;
+      place-items: center;
+      transition: $--transition;
+    }
+  }
+
+  .active {
+    color: $--color-grey-900;
+  }
+  .active .icon {
+    color: $--color-primary-500;
+  }
+  @media screen and (min-width: 992px) {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+}

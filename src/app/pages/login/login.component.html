@@ -1,0 +1,51 @@
+<section class="padding-y">
+  <form class="form" [formGroup]="loginForm">
+    <app-logo></app-logo>
+    <h3>{{ isMember ? "Login" : "Register" }}</h3>
+    <app-alert></app-alert>
+    <!-- Name -->
+    <app-form-row
+      *ngIf="!isMember"
+      name="name"
+      type="text"
+      formCtrlName="name"
+      [form]="loginForm"
+      [isSubmitted]="isSubmitted && !isMember"
+    ></app-form-row>
+    <!-- Email -->
+    <app-form-row
+      name="email"
+      type="email"
+      formCtrlName="email"
+      [form]="loginForm"
+      [isSubmitted]="isSubmitted"
+    ></app-form-row>
+    <!-- Password -->
+    <app-form-row
+      name="password"
+      type="password"
+      formCtrlName="password"
+      [form]="loginForm"
+      [isSubmitted]="isSubmitted"
+    ></app-form-row>
+
+    <button
+      type="submit"
+      class="btn btn-primary btn-block"
+      (click)="handleLogin()"
+    >
+      Submit
+    </button>
+
+    <p>
+      {{ isMember ? "Not a member yet?" : "Already a member?" }}
+      <button
+        type="button"
+        (click)="toggleIsMember()"
+        class="login__member-btn"
+      >
+        {{ isMember ? "Register" : "Login" }}
+      </button>
+    </p>
+  </form>
+</section>

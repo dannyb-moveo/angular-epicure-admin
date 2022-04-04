@@ -1,0 +1,50 @@
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap");
+
+/* primary */
+$--color-primary-50: #f4e2bd;
+$--color-primary-100: #f1dcaf;
+$--color-primary-200: #efd6a2;
+$--color-primary-300: #edd095;
+$--color-primary-400: #eaca87;
+$--color-primary-500: #e8c47a;
+$--color-primary-600: #d1b06e;
+$--color-primary-700: #ba9d62;
+$--color-primary-800: #a28955;
+$--color-primary-900: #8b7649;
+
+/* grey */
+$--color-grey-50: #f0f4f8;
+$--color-grey-100: #d9e2ec;
+$--color-grey-200: #bcccdc;
+$--color-grey-300: #9fb3c8;
+$--color-grey-400: #829ab1;
+$--color-grey-500: #627d98;
+$--color-grey-600: #486581;
+$--color-grey-700: #334e68;
+$--color-grey-800: #243b53;
+$--color-grey-900: #102a43;
+
+/* other colors */
+$--color-black: #222;
+$--color-white: #fff;
+$--color-blue: #3f51b5;
+$--color-blue-dark: #26316d;
+$--color-red: #f44336;
+$--color-red-dark: #922820;
+
+/* rest */
+$--transition: 0.3s ease-in-out all;
+$--font-family: "HelveticaNeue-Thin", Sans-Serif;
+// $--font-family: "Roboto Condensed", Sans-Serif;
+$--letter-spacing: 1px;
+$--border-radius: 0.25rem;
+$--max-width: 1120px;
+$--small-text: 0.875rem;
+$--shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$--shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$--shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$--shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);

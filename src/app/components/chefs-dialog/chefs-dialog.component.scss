@@ -1,0 +1,29 @@
+mat-form-field {
+  width: 100%;
+}
+
+.btn-danger {
+  margin-right: 10px;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-upload {
+  display: flex;
+  margin: 0 0 2rem 4px;
+  justify-content: start;
+  gap: 1rem;
+  align-items: center;
+
+  button {
+    box-shadow: none;
+  }
+
+  img {
+    max-width: 140px;
+    max-height: 100px;
+    margin-left: auto;
+  }
+}

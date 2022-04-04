@@ -1,0 +1,18 @@
+<nav>
+  <div class="nav__container">
+    <button class="nav__toggle-btn" (click)="sidebarService.toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div>
+      <h3 class="logo">logo</h3>
+      <h3 class="nav__logo-text">Admin</h3>
+    </div>
+
+    <div class="nav__btn_container">
+      <button class="btn" (click)="logout()">{{ userName }}</button>
+      <!-- dropdown -->
+      <div class="nav___btn_container-dropdown"></div>
+    </div>
+  </div>
+</nav>
