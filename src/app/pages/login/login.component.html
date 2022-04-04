@@ -2,6 +2,7 @@
   <form class="form" [formGroup]="loginForm">
     <app-logo></app-logo>
     <h3>{{ isMember ? "Login" : "Register" }}</h3>
+    <app-alert></app-alert>
     <!-- Name -->
     <app-form-row
       *ngIf="!isMember"
@@ -9,6 +10,7 @@
       type="text"
       formCtrlName="name"
       [form]="loginForm"
+      [isSubmitted]="isSubmitted && !isMember"
     ></app-form-row>
     <!-- Email -->
     <app-form-row
@@ -16,6 +18,7 @@
       type="email"
       formCtrlName="email"
       [form]="loginForm"
+      [isSubmitted]="isSubmitted"
     ></app-form-row>
     <!-- Password -->
     <app-form-row
@@ -23,6 +26,7 @@
       type="password"
       formCtrlName="password"
       [form]="loginForm"
+      [isSubmitted]="isSubmitted"
     ></app-form-row>
 
     <button

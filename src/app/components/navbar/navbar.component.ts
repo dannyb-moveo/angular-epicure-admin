@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
@@ -7,7 +8,17 @@ import { SidebarService } from 'src/app/services/sidebar.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(public sidebarService: SidebarService) {}
+  userName = '';
+  constructor(
+    public sidebarService: SidebarService,
+    private authenticationService: AuthenticationService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userName = this.authenticationService.currentUserValue.name;
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
 }

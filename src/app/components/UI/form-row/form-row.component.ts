@@ -12,6 +12,7 @@ export class FormRowComponent implements OnInit {
   // @Input() id = '';
   @Input() formCtrlName = '';
   @Input() form: FormGroup;
+  @Input() isSubmitted: boolean;
 
   constructor() {}
 

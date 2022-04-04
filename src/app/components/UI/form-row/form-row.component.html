@@ -6,4 +6,9 @@
     id="{{ name }}"
     [formControlName]="formCtrlName"
   />
+  <div *ngIf="isSubmitted && form.controls[name].errors">
+    <small class="form-alert" *ngIf="form.controls[name].errors?.['required']"
+      >{{ name }} is required</small
+    >
+  </div>
 </div>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './components/_helpers/auth.guard';
+import { AuthGuard } from './_helpers/auth.guard';
 import { ChefsComponent } from './pages/chefs/chefs.component';
 import { DishesComponent } from './pages/dishes/dishes.component';
 import { LoginComponent } from './pages/login/login.component';
