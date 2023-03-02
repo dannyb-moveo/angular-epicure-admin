@@ -15,3 +15,11 @@ jobs:
       - name: Build and test app
         run: |
           npm run build
+      - name: Transfer files to EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+          host: 63.32.5.152
+          username: ubuntu
+          key: ${{ secrets.PEM_FILE }} # This references a secret containing your PEM file
+          source: "dist/" # The path to the dist folder relative to the repository root
+          target: "/home/ubuntu/test" # The path to the remote folder on the EC2 instance
