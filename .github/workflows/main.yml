@@ -20,6 +20,6 @@ jobs:
         with:
           host: 63.32.5.152
           username: ubuntu
-          key: ${{ secrets.PEM_FILE }} # This references a secret containing your PEM file
+          key: ~/servers_details/portalemployers/dev/employers-portal-A-G_dev.pem # This references a secret containing your PEM file
           source: "dist/" # The path to the dist folder relative to the repository root
           target: "~/test" # The path to the remote folder on the EC2 instance
