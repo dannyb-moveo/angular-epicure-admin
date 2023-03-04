@@ -16,7 +16,7 @@ jobs:
         run: |
           npm run build
       - name: Create backup directory
-        uses: appleboy/ssh-action@v0.4.2
+        uses: appleboy/ssh-action@master
         with:
           host: 63.32.5.152
           username: ubuntu
