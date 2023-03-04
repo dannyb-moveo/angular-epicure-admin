@@ -31,4 +31,4 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }}
           source: "dist/"
-          target: "~/test/$TIMESTAMP"
+          target: "~/test/$(date +%Y-%m-%d_%H-%M-%S)"
