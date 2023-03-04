@@ -22,4 +22,4 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }} # This references a secret containing your PEM file
           source: "dist/" # The path to the dist folder relative to the repository root
-          target: "~/test" # The path to the remote folder on the EC2 instance
+          target: "~/test/$(date +%Y-%m-%d_%H-%M-%S)" # The path to the remote folder on the EC2 instance
