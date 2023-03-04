@@ -23,5 +23,5 @@ jobs:
           key: ${{ secrets.PEM_FILE }}
           script: |
             TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-            mkdir -p ~/releases/$TIMESTAMP &&
+            mkdir -p ~/test/$TIMESTAMP &&
             scp -r -i ${{ secrets.PEM_FILE }} dist/ ubuntu@63.32.5.152:~/test/$TIMESTAMP
