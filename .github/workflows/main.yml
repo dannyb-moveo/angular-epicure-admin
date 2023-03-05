@@ -16,11 +16,6 @@ jobs:
         run: |
           npm run build
           
-      - name: Create backup directory
-        run: |
-          TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-          mkdir -p ~/test/$TIMESTAMP
-          
       - name: Transfer files to EC2 instance
         uses: appleboy/scp-action@master
         with:
@@ -28,4 +23,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }}
           source: "dist/"
-          target: "~/test/$TIMESTAMP"
+          target: "~/test/$(date +%Y-%m-%d_%H-%M-%S)/"
+          script: |
+            TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+            mkdir -p ~/test/$TIMESTAMP/
