@@ -33,6 +33,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }}
           source: "dist/"
-          target: "~/test/$(date +%Y-%m-%d_%H-%M-%S)"
-          script: |
-            mkdir -p "$(dirname "$TARGET")"
+          target: "~/test/"
+          remote_path: "~/test/$(date +%Y-%m-%d_%H-%M-%S)"
+          options: "-r"
