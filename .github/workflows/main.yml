@@ -17,9 +17,13 @@ jobs:
           npm run build
           
       - name: Transfer files to EC2 instance
+        env:
+          HOST: 63.32.5.152
+          USERNAME: ubuntu
+          KEY: ${{ secrets.PEM_FILE }}
         run: |
           TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
           mkdir -p ~/test/$TIMESTAMP
-          scp -r -i ${{ secrets.PEM_FILE }} dist/ ubuntu@63.32.5.152:~/test/$TIMESTAMP
-        env:
-          PEM_FILE: ${{ secrets.PEM_FILE }}
+          echo "$KEY" > key.pem
+          scp -r -i key.pem dist/ $USERNAME@$HOST:~/test/$TIMESTAMP
+          rm key.pem
