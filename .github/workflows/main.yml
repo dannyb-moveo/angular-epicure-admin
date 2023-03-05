@@ -16,14 +16,23 @@ jobs:
         run: |
           npm run build
           
+      - name: Create backup directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: 63.32.5.152
+          username: ubuntu
+          key: ${{ secrets.PEM_FILE }}
+          script: |
+            TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+            mkdir -p ~/test/$TIMESTAMP
+            
       - name: Transfer files to EC2 instance
-        env:
-          HOST: 63.32.5.152
-          USERNAME: ubuntu
-          KEY: ${{ secrets.PEM_FILE }}
-        run: |
-          TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-          mkdir -p ~/test/$TIMESTAMP
-          echo "$KEY" > key.pem
-          scp -r -i key.pem dist/ $USERNAME@$HOST:~/test/$TIMESTAMP
-          rm key.pem
+        uses: appleboy/scp-action@master
+        with:
+          host: 63.32.5.152
+          username: ubuntu
+          key: ${{ secrets.PEM_FILE }}
+          source: "dist/"
+          target: "~/test/$(date +%Y-%m-%d_%H-%M-%S)"
+          script: |
+            mkdir -p "$(dirname "$TARGET")"
