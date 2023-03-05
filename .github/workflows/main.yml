@@ -23,7 +23,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }}
           script: |
-            BACKUP_DIR=~/test/release_${{ github.run_id }}
+            BACKUP_DIR=~/test/release_$(date +%Y-%m-%d)_${{ github.run_id }}
             mkdir -p $BACKUP_DIR
 
       - name: Transfer files to EC2 instance
@@ -33,4 +33,4 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_FILE }}
           source: "dist/"
-          target: "~/test/release_${{ github.run_id }}"
+          target: "~/test/release_$(date +%Y-%m-%d)_${{ github.run_id }}"
